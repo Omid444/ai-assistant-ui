@@ -1,0 +1,47 @@
+<div class="home-container">
+  <div class="login-card">
+    <h2>Welcome to AI Document Manager</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <input type="text" formControlName="username" placeholder="Username" required />
+      </div>
+      <div class="form-group">
+        <input type="password" formControlName="password" placeholder="Password" required />
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+    <p *ngIf="errorMessage" style="color:red; margin-top:10px;">
+      {{ errorMessage }}
+    </p>
+    <p class="signup-text">
+      Don’t have an account? 
+      <button class="signup-btn" (click)="openSignup()">Sign up</button>
+    </p>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal-backdrop" *ngIf="showSignup">
+  <div class="modal-card">
+    <h2>Create Account</h2>
+    <form>
+      <div class="form-group">
+        <input type="text" placeholder="First name" required />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Last name" required />
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email" required />
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="Username" required />
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Password" required />
+      </div>
+      <button type="submit" class="login-btn">Sign up</button>
+    </form>
+    <button class="close-btn" (click)="closeSignup()">X</button>
+  </div>
+</div>

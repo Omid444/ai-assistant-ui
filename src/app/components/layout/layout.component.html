@@ -1,0 +1,63 @@
+<!-- Logo (scrolls away with page) -->
+<div class="logo-header">
+  <h2>AI Document Manager</h2>
+</div>
+
+<!-- Fixed Horizontal Navbar -->
+<nav class="navbar">
+  <ul class="nav-links">
+    <!-- <li routerLink="/account" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a routerLink="/account/home">Home</a>
+    </li> -->
+    <li routerLinkActive="active">
+      <a routerLink="/account/home">Home</a>
+    </li>
+    <li routerLink="/account/dashboard" routerLinkActive="active">
+      <a routerLink="/account/dashboard">Dashboard</a>
+    </li>
+    <li routerLink="/account/about" routerLinkActive="active">
+      <a routerLink="/account/about">About</a>
+    </li>
+    <li routerLink="/account/contact" routerLinkActive="active">
+      <a routerLink="/account/contact">Contact</a>
+    </li>
+    <li>
+      <a (click)="logout()">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- Main Content -->
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2025 AI Document Manager — All Rights Reserved</p>
+  <div class="footer-links">
+    <a routerLink="/account/contact">Contact</a>
+    <a href="https://twitter.com" target="_blank">Twitter</a>
+    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    <a href="https://github.com" target="_blank">GitHub</a>
+  </div>
+</footer>
+
+<!-- Chatbot -->
+<div class="chatbot-container">
+  <button class="chatbot-btn" (click)="toggleChatbot()">💬</button>
+
+  <div class="chatbot-window" *ngIf="chatbotOpen">
+    <div class="chatbot-header">
+      <span>AI Chatbot</span>
+      <button class="close-btn" (click)="toggleChatbot()">×</button>
+    </div>
+    <div class="chatbot-body">
+      <p class="bot-message">Hello! How can I help you?</p>
+    </div>
+    <div class="chatbot-footer">
+      <input type="text" placeholder="Type a message..." />
+      <button>Send</button>
+    </div>
+  </div>
+</div>
