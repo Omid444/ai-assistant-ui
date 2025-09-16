@@ -1,0 +1,73 @@
+.container {
+  margin-bottom: 16px;
+}
+
+.upload-btn {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.upload-btn:hover { background: #2980b9; }
+.upload-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.error {
+  color: #c0392b;
+  margin: 10px 0;
+}
+.loading, .empty {
+  margin: 12px 0;
+  color: #555;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+}
+
+.doc-table td {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  padding: 12px 14px;
+}
+
+.table-cell-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-cell-content span {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn, .delete-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btn {
+  background: #3498db;
+  color: #fff;
+}
+.btn:hover { filter: brightness(0.95); }
+
+.delete-btn {
+  background: #e74c3c;
+  color: #fff;
+}
+.delete-btn:hover { filter: brightness(0.95); }

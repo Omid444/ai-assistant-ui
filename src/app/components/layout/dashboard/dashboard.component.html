@@ -1,0 +1,36 @@
+<div class="container">
+
+  <input
+    #fileInput
+    type="file"
+    accept="application/pdf"
+    style="display: none"
+    (change)="onFileSelected($event)"
+  />
+
+  <button class="upload-btn" (click)="triggerFileUpload()" [disabled]="uploading">
+    {{ uploading ? 'Uploading...' : 'Upload Document' }}
+  </button>
+</div>
+
+<div *ngIf="errorMsg" class="error">{{ errorMsg }}</div>
+<div *ngIf="loading" class="loading">Loading  ...</div>
+
+<table *ngIf="!loading && documents.length > 0" class="doc-table">
+  <tr *ngFor="let meta of documents; trackBy: trackByDocId">
+    <td>
+      <div class="table-cell-content">
+        <span>{{ meta.file_name }}</span>
+
+        <div class="actions">
+          <button class="btn" (click)="openDocument(meta.document_id)">See Document</button>
+          <button class="delete-btn" (click)="deleteDocument(meta.document_id)">Delete Document</button>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<div *ngIf="!loading && documents.length === 0" class="empty">
+    No documents found. Please upload a document.
+</div>
