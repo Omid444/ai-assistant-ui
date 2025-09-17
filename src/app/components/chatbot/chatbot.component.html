@@ -1,1 +1,52 @@
-<p>chatbot works!</p>
+<div class="chatbot-container">
+  <button class="chatbot-btn" (click)="toggleChatbot()">💬</button>
+
+  <div class="chatbot-window" *ngIf="chatbotOpen">
+    <div class="chatbot-header">
+      <span>AI Chatbot</span>
+      <button class="close-btn" (click)="toggleChatbot()">×</button>
+    </div>
+
+    <div class="chatbot-body">
+      <div *ngFor="let msg of messages" [ngClass]="msg.sender">
+        <span>{{ msg.text }}</span>
+      </div>
+    </div>
+
+    <div class="chatbot-footer">
+      <input
+        type="text"
+        [(ngModel)]="userInput"
+        (keydown.enter)="sendMessage()"
+        placeholder="Type a message..."
+      />
+
+      <!-- دکمه میکروفون -->
+      <button class="icon-btn" (click)="startDictation()">
+        🎤
+      </button>
+
+      <!-- دکمه آپلود -->
+      <button class="icon-btn" (click)="triggerFileUpload()">
+        📎
+      </button>
+      <input
+        type="file"
+        #fileInput
+        style="display: none"
+        accept="application/pdf"
+        (change)="onFileSelected($event)"
+      />
+
+      <!-- دکمه ارسال -->
+      <button class="icon-btn" (click)="sendMessage()">
+        ➤
+      </button>
+    </div>
+
+    <!-- نمایش نام فایل انتخاب‌شده -->
+    <div *ngIf="selectedFileName" class="file-info">
+      Selected: {{ selectedFileName }}
+    </div>
+  </div>
+</div>
