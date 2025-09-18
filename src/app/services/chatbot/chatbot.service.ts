@@ -7,6 +7,16 @@ interface ChatResponse {
   reply: string;
 }
 
+export interface ChatHistoryItem {
+  id: number;
+  conversation_id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: string;
+  title: string;
+}
+
+
 @Injectable({ providedIn: 'root' })
 export class ChatbotService {
   private baseUrl = environment.apiUrl;
@@ -22,5 +32,8 @@ export class ChatbotService {
     formData.append('file', file, file.name);
 
     return this.http.post<ChatResponse>(`${this.baseUrl}/api/file_upload`, formData);
+  }
+  getHistory(): Observable<ChatHistoryItem[]> {
+    return this.http.get<ChatHistoryItem[]>(`${this.baseUrl}/api/chat/history`);
   }
 }

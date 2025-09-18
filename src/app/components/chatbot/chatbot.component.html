@@ -9,7 +9,22 @@
 
     <div class="chatbot-body">
       <div *ngFor="let msg of messages" [ngClass]="msg.sender">
-        <span>{{ msg.text }}</span>
+        <!-- پیام متنی -->
+        <div *ngIf="msg.text">
+          <span>{{ msg.text }}</span>
+          <div class="timestamp">
+            {{ msg.timestamp | date:'MMM d, y, HH:mm' }}
+          </div>
+        </div>
+    
+        <!-- پیام فایل -->
+        <div *ngIf="msg.fileType === 'pdf'" class="file-message" [ngClass]="msg.sender">
+          <span [innerHTML]="pdfIconSafe"></span>
+          <span class="file-name">{{ msg.fileName }}</span>
+          <div class="timestamp">
+            {{ msg.timestamp | date:'MMM d, y, HH:mm' }}
+          </div>
+        </div>
       </div>
     </div>
 
