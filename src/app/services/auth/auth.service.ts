@@ -64,4 +64,13 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.loggedIn.value;
   }
+  signup(data: {
+    first_name: string;
+    last_name: string;
+    email: string;
+    username: string;
+    password: string;
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/signup`, data);
+  }
 }

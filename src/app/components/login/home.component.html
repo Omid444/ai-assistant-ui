@@ -24,24 +24,25 @@
 <div class="modal-backdrop" *ngIf="showSignup">
   <div class="modal-card">
     <h2>Create Account</h2>
-    <form>
+    <form (ngSubmit)="onSignup()">
       <div class="form-group">
-        <input type="text" placeholder="First name" required />
+        <input type="text" placeholder="First name" [(ngModel)]="firstname" name="firstname" required />
       </div>
       <div class="form-group">
-        <input type="text" placeholder="Last name" required />
+        <input type="text" placeholder="Last name" [(ngModel)]="lastname" name="lastname" required />
       </div>
       <div class="form-group">
-        <input type="email" placeholder="Email" required />
+        <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
       </div>
       <div class="form-group">
-        <input type="text" placeholder="Username" required />
+        <input type="text" placeholder="Username" [(ngModel)]="username" name="username" required />
       </div>
       <div class="form-group">
-        <input type="password" placeholder="Password" required />
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required />
       </div>
       <button type="submit" class="login-btn">Sign up</button>
     </form>
+    <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
     <button class="close-btn" (click)="closeSignup()">X</button>
   </div>
 </div>

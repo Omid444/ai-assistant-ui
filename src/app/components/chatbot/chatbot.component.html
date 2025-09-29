@@ -7,8 +7,8 @@
       <button class="close-btn" (click)="toggleChatbot()">×</button>
     </div>
 
-    <div class="chatbot-body">
-      <div *ngFor="let msg of messages" [ngClass]="msg.sender">
+    <div class="chatbot-body" #chatBody>
+      <div *ngFor="let msg of messages" [ngClass]="msg.sender" class="chat-message">
         <!-- پیام متنی -->
         <div *ngIf="msg.text">
           <span>{{ msg.text }}</span>
