@@ -1,4 +1,46 @@
 <div class="account-home">
-  <h1>Welcome, {{ username }} </h1>
+  <h1>Welcome, {{ username }}</h1>
   <p>You are now logged in to your account.</p>
+
+  <div *ngIf="docs.length > 0" class="alerts-summary">
+    <h2>📌 Upcoming Deadlines</h2>
+    <p>You have {{ docs.length }} documents with deadlines in the next 30 days.</p>
+
+    <div class="alerts-list">
+      <div
+        *ngFor="let doc of docs"
+        class="alert-card"
+        [ngClass]="doc.priority"
+      >
+        <h3>{{ doc.file_name }}</h3>
+
+        <p class="due-date">
+          Due: {{ doc.due_date | date:'MMM d, y' }}
+          ({{ doc.daysLeft }} days left)
+        </p>
+
+        <!-- مبلغ -->
+        <p *ngIf="doc.is_payment" class="payment">
+          Payment Due: {{ doc.is_payment | currency:'USD':'symbol':'1.0-0' }}
+        </p>
+
+        <!-- محتوای کوتاه -->
+        <p class="content">
+          {{ doc.content | slice:0:120 }}...
+        </p>
+
+        <!-- تگ مالیاتی -->
+        <span *ngIf="doc.is_tax_related" class="tag">Tax Related</span>
+
+        <!-- دکمه دیدن سند -->
+        <div class="actions">
+          <button (click)="openDocument(doc.document_id)">View Document</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="docs.length === 0" class="no-alerts">
+    <p>No upcoming deadlines 🎉</p>
+  </div>
 </div>

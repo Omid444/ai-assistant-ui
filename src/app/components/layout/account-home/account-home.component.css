@@ -5,3 +5,101 @@
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
+
+.alerts-summary {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.alert-card {
+  position: relative;
+  padding: 16px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+.alert-card.low {
+  border-left: 6px solid #28a745; 
+}
+
+.alert-card.medium {
+  border-left: 6px solid #ffc107; 
+}
+
+.alert-card.high {
+  border-left: 6px solid #dc3545; 
+}
+
+.alert-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.due-date {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.content {
+  font-size: 14px;
+  color: #333;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 8px;
+  background: #e63946;
+  color: white;
+  font-size: 12px;
+  border-radius: 6px;
+}
+.no-alerts {
+  margin-top: 30px;
+  font-size: 16px;
+  color: #666;
+}
+
+.payment {
+  font-size: 14px;
+  color: #2c7a7b;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.due-date {
+  font-size: 11px;   
+  font-weight: bold;
+  color: rgb(227, 8, 8); 
+  margin-bottom: 10px;
+}
+
+.actions {
+  margin-top: 12px;
+}
+
+.actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.actions button:hover {
+  background-color: #0056b3;
+}
