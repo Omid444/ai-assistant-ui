@@ -20,11 +20,14 @@
   <tr *ngFor="let meta of documents; trackBy: trackByDocId">
     <td>
       <div class="table-cell-content">
-        <span>{{ meta.file_name }}</span>
+        <div>
+          <span>{{ meta.file_name }}</span>
+          <span *ngIf="meta.is_tax_related" class="tag tax-related">Tax Related</span>
+        </div>
 
         <div class="actions">
-          <button class="btn" (click)="openDocument(meta.document_id)">See Document</button>
-          <button class="delete-btn" (click)="deleteDocument(meta.document_id)">Delete Document</button>
+          <button class="btn" (click)="openDocument(meta.document_id)">See</button>
+          <button class="delete-btn" (click)="deleteDocument(meta.document_id)">Delete</button>
         </div>
       </div>
     </td>
@@ -32,5 +35,5 @@
 </table>
 
 <div *ngIf="!loading && documents.length === 0" class="empty">
-    No documents found. Please upload a document.
+  No documents found. Please upload a document.
 </div>

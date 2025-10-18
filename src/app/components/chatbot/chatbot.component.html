@@ -8,25 +8,36 @@
     </div>
 
     <div class="chatbot-body" #chatBody>
-      <div *ngFor="let msg of messages" [ngClass]="msg.sender" class="chat-message">
-        <!-- پیام متنی -->
-        <div *ngIf="msg.text">
-          <span>{{ msg.text }}</span>
-          <div class="timestamp">
-            {{ msg.timestamp | date:'MMM d, y, HH:mm' }}
-          </div>
-        </div>
-    
-        <!-- پیام فایل -->
-        <div *ngIf="msg.fileType === 'pdf'" class="file-message" [ngClass]="msg.sender">
-          <span [innerHTML]="pdfIconSafe"></span>
-          <span class="file-name">{{ msg.fileName }}</span>
-          <div class="timestamp">
-            {{ msg.timestamp | date:'MMM d, y, HH:mm' }}
-          </div>
-        </div>
+  <div *ngFor="let msg of messages" [ngClass]="msg.sender" class="chat-message">
+    <!-- پیام متنی -->
+    <div *ngIf="msg.text">
+      <span>{{ msg.text }}</span>
+      <div class="timestamp">
+        {{ msg.timestamp | date:'MMM d, y, HH:mm' }}
       </div>
     </div>
+
+    <!-- پیام فایل: separate branches for pdf and image -->
+    <ng-container *ngIf="msg.fileType">
+      <div *ngIf="msg.fileType === 'pdf'" class="file-message">
+        <span [innerHTML]="pdfIconSafe"></span>
+        <span class="file-name">{{ msg.fileName }}</span>
+        <div class="timestamp">
+          {{ msg.timestamp | date:'MMM d, y, HH:mm' }}
+        </div>
+      </div>
+
+      <div *ngIf="msg.fileType === 'image'" class="file-message">
+        <img [src]="msg.fileUrl || '/assets/image-icon.png'" alt="image file" width="40" height="40"
+             style="border-radius: 6px; margin-right: 8px;" />
+        <span class="file-name">{{ msg.fileName }}</span>
+        <div class="timestamp">
+          {{ msg.timestamp | date:'MMM d, y, HH:mm' }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
 
     <div class="chatbot-footer">
       <input
@@ -49,7 +60,7 @@
         type="file"
         #fileInput
         style="display: none"
-        accept="application/pdf"
+        accept="application/pdf, image/*"
         (change)="onFileSelected($event)"
       />
 

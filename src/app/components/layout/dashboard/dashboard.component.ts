@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
     this.loading = true;
     this.errorMsg = null;
     this.docService.listDocuments().subscribe({
-      next: (docs:DashboardModel) => {
+      next: (docs: DashboardModel) => {
         this.documents = docs.documents;
         this.loading = false;
       },
@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
       next: () => {
         this.uploading = false;
         input.value = '';
-        this.fetchDocuments(); // پس از آپلود، لیست را تازه کن
+        this.fetchDocuments();
       },
       error: (err) => {
         console.error(err);
@@ -73,17 +73,29 @@ export class DashboardComponent implements OnInit {
   }
 
   openDocument(documentId: string): void {
-  this.docService.getViewUrl(documentId).subscribe({
-    next: (blob) => {
-      const url = URL.createObjectURL(blob);
-      window.open(url, '_blank');
-    },
-    error: (err) => {
-      console.error(err);
-      this.errorMsg = 'Error opening document.';
-    }
-  });
-}
+    this.docService.getViewUrl(documentId).subscribe({
+      next: (blob) => {
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      },
+      error: (err) => {
+        console.error(err);
+        this.errorMsg = 'Error opening document.';
+      }
+    });
+  }
+
+  toggleTax(meta: DocumentMeta): void {
+    this.docService.toggleTaxRelated(meta.document_id).subscribe({
+      next: (res) => {
+        meta.is_tax_related = res.is_tax_related;
+      },
+      error: (err) => {
+        console.error(err);
+        this.errorMsg = 'Error toggling tax flag.';
+      }
+    });
+  }
 
   deleteDocument(documentId: string): void {
     const ok = confirm('Are you sure you want to delete this document?');

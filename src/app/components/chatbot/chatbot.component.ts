@@ -8,7 +8,8 @@ interface Message {
   sender: 'user' | 'assistant';
   text?: string;
   fileName?: string;
-  fileType?: 'pdf';
+  fileType?: 'pdf'| 'image';
+  fileUrl?: string;
   timestamp?: string;
 }
 
@@ -108,36 +109,58 @@ export class ChatbotComponent implements OnInit, AfterViewChecked {
   }
 
   onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) return;
+  const input = event.target as HTMLInputElement;
+  if (!input.files || input.files.length === 0) return;
 
-    const file = input.files[0];
-    if (file.type !== 'application/pdf') {
-      this.messages.push({ sender: 'assistant', text: 'Only PDF files are allowed.' });
-      return;
-    }
+  const file = input.files[0];
+  const fileType = file.type.toLowerCase();
 
-    this.selectedFileName = file.name;
+  // مجاز بودن نوع فایل
+  const allowedTypes = [
+    'application/pdf',
+    'image/png',
+    'image/jpeg',
+    'image/tiff',
+    'image/bmp',
+    'image/gif'
+  ];
 
-    this.messages.push({
-      sender: 'user',
-      fileName: file.name,
-      fileType: 'pdf'
-    });
-
-    this.chatbotService.uploadFile(file).subscribe({
-      next: (res) => {
-        this.messages.push({ sender: 'assistant', text: res.reply || 'File uploaded successfully!' });
-        this.selectedFileName = null;
-        input.value = '';
-      },
-      error: (err) => {
-        console.error(err);
-        this.messages.push({ sender: 'assistant', text: 'Error uploading file.' });
-        this.selectedFileName = null;
-      }
-    });
+  if (!allowedTypes.includes(fileType)) {
+    this.messages.push({ sender: 'assistant', text: 'Only PDF or image files are allowed.' });
+    return;
   }
+
+  this.selectedFileName = file.name;
+
+  // نمایش در چت (آیکن متفاوت برای PDF و تصویر)
+  if (fileType === 'application/pdf') {
+    this.messages.push({ sender: 'user', fileName: file.name, fileType: 'pdf' });
+  } else {
+    this.messages.push({ sender: 'user', fileName: file.name, fileType: 'image' });
+  }
+
+  // آپلود فایل
+  this.chatbotService.uploadFile(file).subscribe({
+    next: (res) => {
+      this.messages.push({
+        sender: 'assistant',
+        text: res.reply || 'File uploaded successfully!',
+        timestamp: new Date().toISOString()
+      });
+      this.selectedFileName = null;
+      input.value = '';
+    },
+    error: (err) => {
+      console.error(err);
+      this.messages.push({
+        sender: 'assistant',
+        text: 'Error uploading file.'
+      });
+      this.selectedFileName = null;
+    }
+  });
+}
+
 
   // 🎤 دیکته (Web Speech API)
   startDictation(): void {

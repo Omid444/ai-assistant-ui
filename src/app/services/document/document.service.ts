@@ -7,6 +7,9 @@ import { DashboardModel } from '../../models/dashboard-model';
 export interface DocumentMeta {
   document_id: string;
   file_name: string;
+  is_tax_related?: boolean; 
+  due_date?: string;        
+  is_payment?: number;
 }
 
 interface ListResponse {
@@ -46,6 +49,10 @@ export class DocumentService {
     responseType: 'blob' // دریافت فایل به صورت باینری
   });
   }
+  toggleTaxRelated(documentId: string): Observable<any> {
+  return this.http.post(`${this.baseUrl}/toggle_tax_related/${documentId}`, {});
+}
+
 }
     
 

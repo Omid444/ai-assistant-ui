@@ -3,7 +3,7 @@
   <p>You are now logged in to your account.</p>
 
   <div *ngIf="docs.length > 0" class="alerts-summary">
-    <h2>📌 Upcoming Deadlines</h2>
+    <h2>Upcoming Deadlines</h2>
     <p>You have {{ docs.length }} documents with deadlines in the next 30 days.</p>
 
     <div class="alerts-list">
@@ -13,7 +13,10 @@
         [ngClass]="doc.priority"
       >
         <h3>{{ doc.file_name }}</h3>
-
+        <div class="actions">
+          <!-- <button (click)="closeDocument(doc)"> Close</button> -->
+          <button class="close-btn" (click)="closeDocument(doc)">❌</button>
+        </div>
         <p class="due-date">
           Due: {{ doc.due_date | date:'MMM d, y' }}
           ({{ doc.daysLeft }} days left)
@@ -21,16 +24,20 @@
 
         <!-- مبلغ -->
         <p *ngIf="doc.is_payment" class="payment">
-          Payment Due: {{ doc.is_payment | currency:'USD':'symbol':'1.0-0' }}
+          Payment: {{ doc.is_payment | currency:'USD':'symbol':'1.0-0' }}
         </p>
 
         <!-- محتوای کوتاه -->
         <p class="content">
-          {{ doc.content | slice:0:120 }}...
+          {{ doc.content | slice:0:420 }}...
         </p>
 
         <!-- تگ مالیاتی -->
-        <span *ngIf="doc.is_tax_related" class="tag">Tax Related</span>
+        <div class="actions">
+          <button (click)="toggleTaxRelated(doc)">
+            Toggle Tax Related ({{ doc.is_tax_related ? 'True' : 'False' }})
+          </button>
+        </div>
 
         <!-- دکمه دیدن سند -->
         <div class="actions">
@@ -41,6 +48,6 @@
   </div>
 
   <div *ngIf="docs.length === 0" class="no-alerts">
-    <p>No upcoming deadlines 🎉</p>
+    <p>No upcoming deadlines</p>
   </div>
 </div>

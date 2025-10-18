@@ -2,6 +2,7 @@
   margin-bottom: 16px;
 }
 
+/* دکمه آپلود */
 .upload-btn {
   background: #3498db;
   color: white;
@@ -14,6 +15,7 @@
 .upload-btn:hover { background: #2980b9; }
 .upload-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
+/* خطا و وضعیت‌ها */
 .error {
   color: #c0392b;
   margin: 10px 0;
@@ -21,8 +23,11 @@
 .loading, .empty {
   margin: 12px 0;
   color: #555;
+  font-style: italic;
+  text-align: center;
 }
 
+/* جدول اسناد */
 .doc-table {
   width: 100%;
   border-collapse: separate;
@@ -36,6 +41,7 @@
   padding: 12px 14px;
 }
 
+/* محتوا داخل هر ردیف */
 .table-cell-content {
   display: flex;
   justify-content: space-between;
@@ -47,6 +53,7 @@
   color: #2c3e50;
 }
 
+/* دکمه‌ها */
 .actions {
   display: flex;
   gap: 8px;
@@ -57,17 +64,37 @@
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
-  transition: filter 0.2s;
+  transition: filter 0.2s, transform 0.1s;
 }
 
 .btn {
   background: #3498db;
   color: #fff;
 }
-.btn:hover { filter: brightness(0.95); }
+.btn:hover { filter: brightness(0.95); transform: scale(1.03); }
 
 .delete-btn {
   background: #e74c3c;
   color: #fff;
 }
-.delete-btn:hover { filter: brightness(0.95); }
+.delete-btn:hover { filter: brightness(0.95); transform: scale(1.03); }
+
+/* برچسب‌ها */
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 10px;
+  color: white;
+  vertical-align: middle;
+}
+
+.tax-related {
+  background-color: #38a169; /* سبز */
+}
+
+.not-tax-related {
+  background-color: #e53e3e; /* قرمز */
+}

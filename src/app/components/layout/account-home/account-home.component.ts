@@ -36,6 +36,19 @@ export class AccountHomeComponent implements OnInit {
       this.username = payload.sub; // چون تو بک‌اند sub = username
     }
   }
+
+  closeDocument(doc: RetrievedDoc): void {
+  const ok = confirm(`Are you sure you want to close "${doc.file_name}"?`);
+  if (!ok) return;
+  this.accountService.closeDocument(doc.document_id).subscribe({
+    next: () => {
+      this.docs = this.docs.filter(d => d.document_id !== doc.document_id);
+    },
+    error: (err) => console.error(err)
+  });
+}
+
+
   openDocument_1(documentId: string): void {
     const url = `${this.baseUrl}/show_pdf/${documentId}`;
     window.open(url, '_blank');
@@ -63,7 +76,7 @@ export class AccountHomeComponent implements OnInit {
 
         if (res && res.retrieved_docs) {
           this.docs = res.retrieved_docs.map((doc: any) => {
-            const dueDate = new Date(doc.metadata.due_date);
+            const dueDate = new Date(doc.due_date);
             const today = new Date();
             const diff = Math.ceil(
               (dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
@@ -74,21 +87,31 @@ export class AccountHomeComponent implements OnInit {
             else if (diff <= 15) priority = 'medium';
 
             return {
-              file_name: doc.metadata.file_name,
-              due_date: doc.metadata.due_date,
-              document_id: doc.metadata.document_id,
-              is_tax_related: doc.metadata.is_tax_related,
-              is_payment: doc.metadata.is_payment,
-              content: doc.page_content,
+              file_name: doc.file_name,
+              due_date: doc.due_date,
+              document_id: doc.document_id,
+              is_tax_related: doc.is_tax_related,
+              is_payment: doc.is_payment,
+              content: doc.content,   // 👈 مستقیم از همون کلید جدید
               daysLeft: diff,
               priority
             } as RetrievedDoc;
           });
         }
+
       },
       error: (err) => {
         console.error('Error fetching account data:', err);
       }
     });
   }
+  toggleTaxRelated(doc: RetrievedDoc): void {
+  this.accountService.toggleTaxRelated(doc.document_id).subscribe({
+    next: (res) => {
+      doc.is_tax_related = res.is_tax_related;
+    },
+    error: (err) => console.error(err)
+  });
+}
+
 }
