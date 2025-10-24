@@ -42,6 +42,7 @@ export class AccountHomeComponent implements OnInit {
   if (!ok) return;
   this.accountService.closeDocument(doc.document_id).subscribe({
     next: () => {
+      this.ngOnInit
       this.docs = this.docs.filter(d => d.document_id !== doc.document_id);
     },
     error: (err) => console.error(err)
